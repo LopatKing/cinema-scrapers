@@ -1,0 +1,25 @@
+body {
+    color: #FFD700;
+    background: #622F22;
+}
+
+.selectdatewidget, .selectdatewidget:focus, .selectdatewidget:active {
+    background-color: #FFD700;
+    color: #622F22;
+}
+
+a:link {
+  color: #FFD700;
+}
+
+a:visited {
+  color: #c48930;
+}
+
+a:hover {
+  color: #c48930;
+}
+
+a:active {
+  color: #c48930;
+}

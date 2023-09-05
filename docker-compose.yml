@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: ./django
+      dockerfile: ./Dockerfile
+    command: gunicorn -w 2 -b 0:8000 config.wsgi:application
+    volumes:
+      - ./django/.env:/srv/project/.env
+      - ./django/static:/var/www/app/static
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings
+    env_file:
+      - ./django/.env
+    expose:
+      - 8000
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    image: postgres:14.9
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django_ps
+      - POSTGRES_DB=django_dev
+    restart: always
+
+  redis:
+    image: redis:7.2
+    expose:
+      - 6379
+    restart: always
+
+  nginx:
+    image: nginx:1.25
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./django/static:/var/www/app/static
+    ports:
+      - 80:80
+      - 444:443
+    depends_on:
+      - django
+    restart: always
+
+  celery:
+    build:
+      context: ./django
+    command: celery --app=config worker --loglevel=debug
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./django/.env
+    volumes:
+      - ./django/.env:/srv/project/.env
+    restart: always
+
+volumes:
+  postgres_data:

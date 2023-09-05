@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}Main page{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mt-5">
+        {% crispy start_scraper_form %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <ul id="results" class="list-unstyled">
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="/static/js/plugins/start_scraper_form.js"></script>
+{% endblock %}
+
