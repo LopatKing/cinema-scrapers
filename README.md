@@ -8,14 +8,15 @@
 3. Make .env file:  
 `cp ./django/.env.example ./django/.env`
 4. Change DJANGO_SECRET_KEY in .env file for production - https://djecrety.ir/
-5. Build docker containers  
+5. Add server IP and domain to DJANGO_ALLOWED_HOSTS in .env for production.
+6. Build docker containers  
 `docker-compose build`
-6. Run docker as daemons:  
+7. Run docker as daemons:  
 `docker-compose up -d`
-7. Add superadmin user.  
+8. Add superadmin user.  
 `docker-compose exec django python3 manage.py createsuperuser`
 
-Now you can login to admin http://0.0.0.0/admin
+Now you can login to admin http://0.0.0.0/admin and add scrapers http://0.0.0.0/admin/cinemas/cinemaprovider/
 
 ## Scrapers
 1. All scrapers must be stored in the "scrapers" directory with the .py extension.
