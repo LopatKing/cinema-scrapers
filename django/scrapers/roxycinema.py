@@ -12,8 +12,9 @@ from datetime import date
 import pandas
 from bs4 import BeautifulSoup
 
-from cinemas.models import Cinema, ScraperTask, ShowtimeSeats
+from cinemas.models import ScraperTask, ShowtimeSeats
 from cinemas.models import Movie as DjangoMovie
+from cinemas.models import Cinema as DjangoCinema
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -444,7 +445,7 @@ def save_to_django_db(task: ScraperTask):
     showtimes = showtimes.run_until_complete(main([search_date_str]))
 
     for showtime in showtimes:
-        cinema, created = Cinema.objects.get_or_create(name=showtime.cinema.name)
+        cinema, created = DjangoCinema.objects.get_or_create(name=showtime.cinema.name)
         movie, created = DjangoMovie.objects.get_or_create(name=showtime.movie.title)
 
         for seats in showtime.seats:

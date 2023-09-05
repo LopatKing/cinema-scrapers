@@ -35,6 +35,6 @@ the scraper.
 5. This time in seconds can be changed in the SCRAPERS_CACHE_TIME variable in the .env file. Docker container needs to 
 be restarted after changes
 
-## logs
+## Logs
 A quick way to see the current logs is  
 `docker-compose logs celery`
