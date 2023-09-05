@@ -2,7 +2,13 @@
 1. Install required packages:  
 `apt install docker docker-compose git`
 2. Copy the project. For example from github:  
-``
+`git clone https://github.com/LopatKing/cinema-scrapers`  
+`cd cinema-scrapers`
+3. Make .env file:  
+`cp env.example .env`
+4. Change DJANGO_SECRET_KEY in .enf file for production - https://djecrety.ir/
+5. Build docker containers  
+`docker-compose build`
 
 ## Scrapers
 1. All scrapers must be stored in the "scrapers" directory with the .py extension.
