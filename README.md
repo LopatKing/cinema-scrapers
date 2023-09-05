@@ -1,14 +1,21 @@
 ## Deploy
 1. Install required packages:  
+`apt update`    
 `apt install docker docker-compose git`
 2. Copy the project. For example from github:  
 `git clone https://github.com/LopatKing/cinema-scrapers`  
 `cd cinema-scrapers`
 3. Make .env file:  
-`cp env.example .env`
-4. Change DJANGO_SECRET_KEY in .enf file for production - https://djecrety.ir/
+`cp ./django/.env.example ./django/.env`
+4. Change DJANGO_SECRET_KEY in .env file for production - https://djecrety.ir/
 5. Build docker containers  
 `docker-compose build`
+6. Run docker as daemons:  
+`docker-compose up -d`
+7. Add superadmin user.  
+`docker-compose exec django python3 manage.py createsuperuser`
+
+Now you can login to admin http://0.0.0.0/admin
 
 ## Scrapers
 1. All scrapers must be stored in the "scrapers" directory with the .py extension.
