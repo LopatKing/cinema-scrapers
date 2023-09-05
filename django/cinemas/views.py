@@ -78,10 +78,10 @@ class CSVDownloadView(View):
         writer.writerow(headers)
         for seat_obj in seats:
             writer.writerow([
-                seat_obj.datetime.strptime("%d %B %H:%M"),
+                seat_obj.datetime.strftime("%d %B %H:%M"),
                 seat_obj.movie.name,
                 seat_obj.cinema.name,
-                seat_obj.experiesnce,
+                seat_obj.experience,
                 seat_obj.all,
                 seat_obj.sold,
                 seat_obj.cinema_room,

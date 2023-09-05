@@ -331,6 +331,7 @@ async def main(search_dates: List[str]) -> List[FullShowtime]:
 #     df.to_csv("cinemacity_output.csv")
 
 def save_to_django_db(task: ScraperTask):
+    logging.info(f"Start task for {task.cinema_provider.name} {task.id}")
     search_date_str = task.date_query.strftime("%Y-%m-%d")
     showtimes = asyncio.run(main([search_date_str]))
     for showtime in showtimes:
@@ -346,7 +347,6 @@ def save_to_django_db(task: ScraperTask):
                 experience=", ".join(showtime.short.experience_tags),
                 all=seats.all,
                 sold=seats.sold,
-                cinema_room=showtime[4],
                 price=seats.price,
-                type=seats.type,
+                type=seats.title,
             )
