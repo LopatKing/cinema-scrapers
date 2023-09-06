@@ -1,11 +1,9 @@
 import json
 import logging
 import re
-import time
 import urllib.parse
 from datetime import datetime
-from random import randint
-from typing import NamedTuple, List, Optional
+from typing import NamedTuple, List
 from datetime import date
 import aiohttp
 import asyncio
