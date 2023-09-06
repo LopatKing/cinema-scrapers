@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 from cinemas.models import ScraperTask, ShowtimeSeats
 from cinemas.models import Movie as DjangoMovie
 from cinemas.models import Cinema as DjangoCinema
+from common.models import Country
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -445,8 +446,9 @@ def save_to_django_db(task: ScraperTask):
     showtimes = showtimes.run_until_complete(main([search_date_str]))
 
     for showtime in showtimes:
-        cinema, created = DjangoCinema.objects.get_or_create(name=showtime.cinema.name)
-        movie, created = DjangoMovie.objects.get_or_create(name=showtime.movie.title)
+        country, created = Country.objects.get_or_create(name="UAE")
+        cinema, created = DjangoCinema.objects.get_or_create(name=showtime.cinema.name, country=country)
+        movie, created = DjangoMovie.objects.get_or_create(name=showtime.movie.title, language=showtime.movie.language)
 
         for seats in showtime.seats:
             ShowtimeSeats.objects.create(
@@ -459,9 +461,7 @@ def save_to_django_db(task: ScraperTask):
                 all=seats.all,
                 sold=seats.sold,
                 price=seats.price,
-                type=seats.title,
+                area=seats.title,
             )
 
-
 # calling_main()
-
