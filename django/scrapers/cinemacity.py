@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 
 from cinemas.models import Cinema, ScraperTask, ShowtimeSeats
 from cinemas.models import Movie as DjangoMovie
+from common.models import Country
 
 if asyncio.get_event_loop().is_running():
     import nest_asyncio
@@ -335,7 +336,8 @@ def save_to_django_db(task: ScraperTask):
     search_date_str = task.date_query.strftime("%Y-%m-%d")
     showtimes = asyncio.run(main([search_date_str]))
     for showtime in showtimes:
-        cinema, created = Cinema.objects.get_or_create(name=showtime.cinema_name)
+        country, created = Country.objects.get_or_create(name="UAE")
+        cinema, created = Cinema.objects.get_or_create(name=showtime.cinema_name, country=country)
         movie, created = DjangoMovie.objects.get_or_create(name=showtime.short.movie.title)
 
         for seats in showtime.seats_areas:
@@ -348,5 +350,6 @@ def save_to_django_db(task: ScraperTask):
                 all=seats.all,
                 sold=seats.sold,
                 price=seats.price,
-                type=seats.title,
+                area=seats.title,
+                cinema_room=showtime.screen_name,
             )
