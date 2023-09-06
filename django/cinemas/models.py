@@ -35,6 +35,10 @@ class CinemaProvider(TimestampedModel):
         match=".*\.py$",
         recursive=True
     )
+    logo = models.ImageField(
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         verbose_name = "Cinema Provider"

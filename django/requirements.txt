@@ -31,6 +31,7 @@ numpy==1.25.2
 packaging==23.1
 pandas==2.1.0
 parse==1.19.1
+Pillow==10.0.0
 prompt-toolkit==3.0.39
 psycopg2-binary==2.9.7
 pyee==8.2.2
