@@ -64,29 +64,33 @@ class CSVDownloadView(View):
 
         seats = ShowtimeSeats.objects.filter(task=task)
         headers = [
-            "Date/Time",
             "Movie",
             "Cinema",
+            "Date/Time",
             "Experience",
+            "Cinema Room",
+            "Seats Area",
             "All",
             "Sold",
-            "Cinema Room",
             "URL",
-            "Parsed on"
+            "Parsed on",
+            "Language"
         ]
         writer = csv.writer(response)
         writer.writerow(headers)
         for seat_obj in seats:
             writer.writerow([
-                seat_obj.datetime.strftime("%d %B %H:%M"),
                 seat_obj.movie.name,
                 seat_obj.cinema.name,
+                seat_obj.datetime.strftime("%d %B %H:%M"),
                 seat_obj.experience,
+                seat_obj.cinema_room,
+                seat_obj.area,
                 seat_obj.all,
                 seat_obj.sold,
-                seat_obj.cinema_room,
                 seat_obj.url,
-                seat_obj.created_on.strftime("%d %B %H:%M")
+                seat_obj.created_on.strftime("%d %B %H:%M"),
+                seat_obj.movie.language,
             ])
         return response
 
