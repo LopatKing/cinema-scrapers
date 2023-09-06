@@ -1,6 +1,4 @@
 import importlib
-import random
-import time
 from datetime import datetime
 
 from cinemas.constants import ScraperStatus
@@ -15,7 +13,10 @@ def scan_cinema(cinema_provider_pk: str, date_query: datetime.date) -> bool:
 
     scraper_module_str = cinema_provider_obj.scraper_file.replace("/", ".")[0:-3]
     scraper_module = importlib.import_module(scraper_module_str)
-    scraper_module.save_to_django_db(task)
+    try:
+        scraper_module.save_to_django_db(task)
+    except:
+        pass
 
     cinema_provider_obj.scraper_status = ScraperStatus.AVAILABLE
     cinema_provider_obj.save()
