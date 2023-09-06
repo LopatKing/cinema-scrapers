@@ -9,3 +9,11 @@ class TimestampedModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Country(models.Model):
+    name = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+    )

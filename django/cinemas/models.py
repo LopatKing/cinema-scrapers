@@ -1,4 +1,4 @@
-from common.models import TimestampedModel
+from common.models import TimestampedModel, Country
 from django.db import models
 
 from cinemas.constants import ScraperStatus
@@ -65,6 +65,12 @@ class Cinema(TimestampedModel):
         blank=False,
         null=False,
     )
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True
+    )
 
 
 class Movie(TimestampedModel):
@@ -72,6 +78,10 @@ class Movie(TimestampedModel):
         max_length=255,
         blank=False,
         null=False,
+    )
+    language = models.CharField(
+        max_length=255,
+        blank=True,
     )
 
 
@@ -119,7 +129,8 @@ class ShowtimeSeats(TimestampedModel):
     )
     cinema_room = models.CharField(
         max_length=255,
-        blank=True
+        blank=True,
+        verbose_name="Seats screen"
     )
     price = models.DecimalField(
         blank=False,
@@ -127,10 +138,10 @@ class ShowtimeSeats(TimestampedModel):
         decimal_places=2,
         max_digits=6,
     )
-    type = models.CharField(
+    area = models.CharField(
         max_length=255,
         blank=True,
-        verbose_name="Seats type"
+        verbose_name="Seats area"
     )
 
     class Meta:
