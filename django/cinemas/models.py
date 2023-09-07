@@ -76,6 +76,9 @@ class Cinema(TimestampedModel):
         null=True
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Movie(TimestampedModel):
     name = models.CharField(
@@ -87,6 +90,9 @@ class Movie(TimestampedModel):
         max_length=255,
         blank=True,
     )
+
+    def __str__(self):
+        return self.name
 
 
 class ShowtimeSeats(TimestampedModel):
@@ -152,3 +158,6 @@ class ShowtimeSeats(TimestampedModel):
         verbose_name = "Showtime Seats"
         verbose_name_plural = "Showtime Seats"
         ordering = ["-created_on"]
+
+    def __str__(self):
+        return f"{self.task.cinema_provider.name} - {self.created_on.strftime('%d %B %H:%M')}"
