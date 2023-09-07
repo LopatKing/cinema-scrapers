@@ -17,3 +17,18 @@ class Country(models.Model):
         blank=False,
         null=False,
     )
+
+
+class Error(TimestampedModel):
+    title = models.TextField(
+        blank=False,
+        null=False
+    )
+    source = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        ordering = ["-created_on"]
