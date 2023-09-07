@@ -9,6 +9,7 @@ services:
     volumes:
       - ./django/.env:/srv/project/.env
       - ./django/static:/var/www/app/static
+      - ./django/media:/var/www/app/media
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings
     env_file:
@@ -40,6 +41,7 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./django/static:/var/www/app/static
+      - ./django/media:/var/www/app/media
     ports:
       - 80:80
       - 444:443
