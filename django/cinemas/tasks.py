@@ -4,6 +4,7 @@ from datetime import datetime
 
 from cinemas.constants import ScraperStatus
 from cinemas.models import CinemaProvider, ScraperTask
+from common.models import Error
 from config.celery import app
 
 
@@ -17,6 +18,7 @@ def scan_cinema(cinema_provider_pk: str, date_query: datetime.date) -> bool:
     try:
         scraper_module.save_to_django_db(task)
     except Exception as e:
+        Error.objects.create(title=str(e), source=scraper_module_str)
         logging.error(f"Celery task execution error {e}")
 
     cinema_provider_obj.scraper_status = ScraperStatus.AVAILABLE
