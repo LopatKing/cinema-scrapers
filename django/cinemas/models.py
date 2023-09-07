@@ -36,8 +36,8 @@ class CinemaProvider(TimestampedModel):
         recursive=True
     )
     logo = models.ImageField(
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
     )
 
     class Meta:
