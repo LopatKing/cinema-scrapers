@@ -19,6 +19,7 @@ class MainTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["start_scraper_form"] = StartScraperForm()
+        context["cinema_providers"] = CinemaProvider.objects.filter(is_available=True)
         return context
 
 

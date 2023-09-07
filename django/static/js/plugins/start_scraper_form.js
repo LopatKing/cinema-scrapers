@@ -29,7 +29,28 @@ function addLinkToCSV(cinema_id, name, task_id) {
   $("li[name="+ cinema_id + "]").prepend("<a href='/get_csv/" + task_id + "' target='_blank'>" + check_icon + name + "</a>")
 }
 
+function addImgToInputLabel() {
+  let logos = $(".logo")
+  logos.each(function () {
+    let cinema_provider_val = $(this).attr("value")
+
+    let img = $("img[value='" + cinema_provider_val + "']")
+    if (img === null) return;
+    let img_src = img.attr("src")
+
+    let cinema_provider_input = $("input[value='" + cinema_provider_val + "']")
+    cinema_provider_input.addClass("d-none")
+    let cinema_provider_label = cinema_provider_input.next()
+    cinema_provider_label.addClass("text-center")
+    let cinema_provider_name = cinema_provider_label.text()
+    let img_html = "<img class='logo mb-3' src='" + img_src + "'>"
+    cinema_provider_label.empty().append(img_html).append(cinema_provider_name)
+
+  })
+}
+
 $(document).ready(() => {
+  addImgToInputLabel()
   $(document).on('click', '#start-scan-btn', function() {
     $("#results").empty()
     let selected_cinemas = $('input[name="cinema"]:checked')

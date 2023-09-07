@@ -33,14 +33,17 @@ class StartScraperForm(ModelForm):
         self.fields["date"].label = ""
 
         self.helper.layout = Layout(
+            Field("cinema", wrapper_class="d-flex justify-content-center", css_class="h5 d-lg-flex justify-content-center"),
+            Field("date", wrapper_class="d-flex justify-content-center"),
             Div(
-                Field("cinema", wrapper_class="col-auto"),
-                Field("date", wrapper_class="col-4 row", css_class="col"),
-                Div(
-                    HTML("<button id='start-scan-btn' class='btn btn-outline-warning btn-lg col' type='button'>"
-                         "Start Scan!</button>"),
-                    css_class="col-auto mt-1"
-                ),
-                css_class="row justify-content-md-center"
+                HTML("<button id='start-scan-btn' class='btn btn-lg' type='button'>Start Scan!</button>"),
+                css_class="d-flex justify-content-center"
             ),
+            HTML(
+                """
+                {% for cinema_providers in cinema_providers %}
+                    <img src="{{ cinema_providers.logo.url }}" value="{{ cinema_providers.id }}" class="d-none logo">
+                {% endfor %}
+                """
+            )
         )
