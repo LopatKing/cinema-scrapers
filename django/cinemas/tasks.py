@@ -6,7 +6,7 @@ from cinemas.models import CinemaProvider, ScraperTask
 from config.celery import app
 
 
-@app.task
+@app.task(autoretry_for=(Exception,), retries=5, retry_kwargs={'max_retries': 5, 'countdown': 5})
 def scan_cinema(cinema_provider_pk: str, date_query: datetime.date) -> bool:
     cinema_provider_obj = CinemaProvider.objects.get(pk=cinema_provider_pk)
     task = ScraperTask.objects.create(cinema_provider=cinema_provider_obj, date_query=date_query)
@@ -16,7 +16,7 @@ def scan_cinema(cinema_provider_pk: str, date_query: datetime.date) -> bool:
     try:
         scraper_module.save_to_django_db(task)
     except:
-        pass
+        raise Exception
 
     cinema_provider_obj.scraper_status = ScraperStatus.AVAILABLE
     cinema_provider_obj.save()
