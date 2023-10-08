@@ -83,8 +83,7 @@ async def get_html(session: aiohttp.ClientSession, url: str, params: dict = None
                     return await resp.text()
                 else:
                     logging.error(f"Page failed to load. Url - {resp.url}. Status code - {resp.status}. Trying again")
-                    st_loop = asyncio.new_event_loop()
-                    await st_loop.sleep(randint(5, 60))
+                    await asyncio.sleep(randint(5,30))
             except Exception as e:
                 print("Insdie get_html execption..")
 
@@ -344,9 +343,8 @@ async def get_all_showtimes(session: aiohttp.ClientSession,
                             movies,
                             date_str: str):  ## create separate task for each movie to get showtimes
     tasks = []
-    st_loop = asyncio.new_event_loop()
     for movie in movies:
-        task = st_loop.create_task(get_movie_showtimes(session, movie, date_str))
+        task = asyncio.create_task(get_movie_showtimes(session, movie, date_str))
         tasks.append(task)
     showtimes = await asyncio.gather(*tasks)
     results = []
@@ -358,9 +356,8 @@ async def get_all_showtimes(session: aiohttp.ClientSession,
 
 async def get_all_seats(movie_showtimes):
     tasks = []
-    st_loop = asyncio.new_event_loop()
     for show in movie_showtimes:
-        task = st_loop.create_task(get_seats(show))
+        task = asyncio.create_task(get_seats(show))
         tasks.append(task)
     showtimes = await asyncio.gather(*tasks)
     results = []
