@@ -420,7 +420,7 @@ def calling_main():
     SEARCH_DATES = date.today()
     formatted_search_date = SEARCH_DATES.strftime("%Y-%m-%d")
     SEARCH_DATES_LIST.append(formatted_search_date)
-    showtimes = asyncio.get_event_loop()
+    showtimes = asyncio.new_event_loop()
     showtimes = showtimes.run_until_complete(main(SEARCH_DATES_LIST))
     data = []
     for showtime in showtimes:
@@ -442,7 +442,7 @@ def calling_main():
 def save_to_django_db(task: ScraperTask):
     logging.info(f"Start task for {task.cinema_provider.name} {task.id}")
     search_date_str = task.date_query.strftime("%Y-%m-%d")
-    showtimes = asyncio.get_event_loop()
+    showtimes = asyncio.new_event_loop()
     showtimes = showtimes.run_until_complete(main([search_date_str]))
 
     for showtime in showtimes:
