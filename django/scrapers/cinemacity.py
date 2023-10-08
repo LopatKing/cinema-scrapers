@@ -6,16 +6,12 @@ from typing import NamedTuple, List, Optional
 
 import aiohttp
 import asyncio
-import pandas
 from bs4 import BeautifulSoup
 
 from cinemas.models import Cinema, ScraperTask, ShowtimeSeats
 from cinemas.models import Movie as DjangoMovie
 from common.models import Country
 
-if asyncio.get_event_loop().is_running():
-    import nest_asyncio
-    nest_asyncio.apply()
 
 logging.basicConfig(
     level=logging.DEBUG,

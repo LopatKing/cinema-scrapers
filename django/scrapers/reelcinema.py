@@ -6,12 +6,10 @@ import re
 import urllib.parse
 from datetime import datetime
 from random import randint
-from typing import NamedTuple, List, Optional
-import pandas as pd
+from typing import List, Optional
 import aiohttp
 import asyncio
 from bs4 import BeautifulSoup
-from requests_html import HTMLSession
 from requests_html import AsyncHTMLSession
 from datetime import date
 
@@ -21,10 +19,6 @@ from common.models import Country
 
 session = AsyncHTMLSession()
 
-if asyncio.get_event_loop().is_running():
-    import nest_asyncio
-
-    nest_asyncio.apply()
 
 logging.basicConfig(
     level=logging.DEBUG,

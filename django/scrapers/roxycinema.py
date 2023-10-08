@@ -3,13 +3,11 @@ import logging
 import re
 import urllib.parse
 from datetime import datetime
-from random import randint
 from typing import NamedTuple, List, Optional
 import pandas as pd
 import aiohttp
 import asyncio
 from datetime import date
-import pandas
 from bs4 import BeautifulSoup
 
 from cinemas.models import ScraperTask, ShowtimeSeats
@@ -25,10 +23,6 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-if asyncio.get_event_loop().is_running():
-    import nest_asyncio
-
-    nest_asyncio.apply()
 
 TCPCONNECTOR_LIMIT = 100
 REQUESTS_LIMIT = 20
