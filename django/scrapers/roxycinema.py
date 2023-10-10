@@ -201,7 +201,7 @@ async def get_movie_showtimes(session: aiohttp.ClientSession,
                         li_attrs.remove("onclick")
                         if len(li_attrs) != 1:
                             print(f"Getting Showtime_id failed {a_tag.find_parent('li')}")
-                            raise ValueError
+                            continue
                         showtime_id = get_upper_string(li_attrs[0], html)
 
                         print(showtime_id)
